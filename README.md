@@ -1,3 +1,4 @@
+* CREATED BY CURSOR *
 ![ffuf mascot](_img/ffuf_run_logo_600.png)
 # ffuf - Fuzz Faster U Fool
 
