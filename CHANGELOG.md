@@ -1,6 +1,7 @@
 ## Changelog
 - master
   - New
+    - Added PRD planning kickoff (`docs/PRD_PLANNING.md`), agent docs (`claude.md`, `CONTRIBUTING.md`), project structure reference, and synced gist helpers (`dev_best_practices.md`, `task_replan_planner.md`, `agentic_workflow_helper.md`, `health_check_endpoint.py`)
     - Added audit logging functionality
   - Changed
     - Fix a bug in autocalibration strategy merging, when two files have the same strategy key

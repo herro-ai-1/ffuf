@@ -1,2 +1,7 @@
 /ffuf
 .idea
+
+health.log
+agent_activity.log
+
+__pycache__/

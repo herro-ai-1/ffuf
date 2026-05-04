@@ -28,17 +28,20 @@ func TestAuditLogger(t *testing.T) {
 		t.Errorf("Error executing Chmod: %s", err)
 	}
 
-	audit, err = NewAuditLogger(filename)
+	// Root can still open files mode 000; only assert when permissions apply.
+	if os.Geteuid() != 0 {
+		audit, err = NewAuditLogger(filename)
 
-	if err == nil {
-		t.Errorf("Error was nil, expected non-nil")
+		if err == nil {
+			t.Errorf("Error was nil, expected non-nil")
+		}
+
+		if audit != nil {
+			t.Errorf("Audit was non-nil, expected nil")
+		}
 	}
 
-	if audit != nil {
-		t.Errorf("Audit was non-nil, expected nil")
-	}
-
-	err = os.Chmod(filename, 6550)
+	err = os.Chmod(filename, 0644)
 	if err != nil {
 		t.Errorf("Error executing Chmod: %s", err)
 	}
