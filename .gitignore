@@ -1,2 +1,5 @@
 /ffuf
 .idea
+
+health.log
+agent_activity.log

@@ -2,6 +2,7 @@ package output
 
 import (
 	"os"
+	"runtime"
 	"testing"
 
 	"github.com/ffuf/ffuf/v2/pkg/ffuf"
@@ -30,12 +31,21 @@ func TestAuditLogger(t *testing.T) {
 
 	audit, err = NewAuditLogger(filename)
 
-	if err == nil {
-		t.Errorf("Error was nil, expected non-nil")
-	}
+	if os.Getuid() == 0 && runtime.GOOS == "linux" {
+		if audit != nil {
+			audit.Close()
+		}
+		if err != nil {
+			t.Logf("Skipping unreadable-file assertion when running as root (chmod is ineffective): %v", err)
+		}
+	} else {
+		if err == nil {
+			t.Errorf("Error was nil, expected non-nil")
+		}
 
-	if audit != nil {
-		t.Errorf("Audit was non-nil, expected nil")
+		if audit != nil {
+			t.Errorf("Audit was non-nil, expected nil")
+		}
 	}
 
 	err = os.Chmod(filename, 6550)
